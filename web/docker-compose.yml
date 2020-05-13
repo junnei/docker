@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+    environment:
+      FLASK_ENV: development
+    links:
+      - "redis:database"
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:alpine"
+  
+#  db:
+#    image: postgres
+#    ports:
+#      - "8001:5432"
+#    environment:
+#      - POSTGRES_DB=postgres
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres

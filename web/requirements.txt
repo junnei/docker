@@ -1,0 +1,4 @@
+flask
+redis
+#psycopg2==2.8.4 
+#Flask-SQLAlchemy===2.4.1
