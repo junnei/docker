@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Job Finder</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.min.css') }}">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<header>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-navy navbar-dark fixed-top scrolling-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <strong>Job Finder</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">Find</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/db">DB</a>
+          </li>
+        </ul>
+        <form class="form-inline">
+          <div class="md-form my-0">
+            <input class="form-control mr-sm-2" type="text" type="submit" placeholder="Search" aria-label="Search">
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar -->
+  
+<body>
+  <!-- Full Page Intro -->
+  <div class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center; ">
+    <!-- Mask & flexbox options-->
+    <div class="mask rgba-gradient align-items-center" style="overflow:scroll;">
+      <!-- Content -->
+    
+      <div class="container" style="padding-top : 50px;">
+        <!--Grid row-->
+        <div class="d-flex justify-content-center row mt-4">
+          <!--Grid column-->
+          <div class="col-md-10 col-xl-9 mb-8" style="padding-bottom:30px;">
+            <!--Form-->
+            <div class="card wow fadeInRight" data-wow-delay="0.3s">
+              <div class="card-body" style="padding-bottom:30px;">
+                <!--Header-->
+
+  <hr class="hr-light">
+  
+    <h1 class ="text-center"><a class="white-text" href="/">Job Finder</a></h1>
+
+
+  
+    <div class="d-flex justify-content-around">
+      {% set count = namespace(value=0) %}
+      {% for key, value in posts.items() %}
+      <div>
+        <h4 class ="py-2 white-text">
+        {{key}}
+        </h4>
+          {% for job, list in posts[key].items() %}
+          <h5 class="white-text">
+            {% if job!='0' %}
+            {{ job }} - {{list|length}}
+            {% else %}
+            [All] - {{list|length}}
+            {% endif %}
+            {% set count.value = count.value + list|length %}
+          </h5>
+          {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    <h5 class ="text-md-right white-text pt-4 px-4">
+      {{ count.value }} jobs found.
+    </h5>
+
+  <hr class="hr-light">
+  
+<form action="/extract" method="post">
+
+<div class="text-center row d-flex justify-content-around">
+{% for page in selected %}
+  {% if page == "weworkremotely" %}
+  <label for="{{page}}">
+<img 
+src="https://du02x8uccjib0.cloudfront.net/assets/IsotypeV2-1ebe3dd57673f3e8d02b7490bc0faaef55d6a95d3a4aaf17298bd3ed503ae7fe.svg" 
+style="background-color:white; padding:15px 0px;  border-radius: 5px; width:50px; height:50px;"/>
+</label>
+  {% endif %}
+
+  {% if page == "stackoverflow" %}
+  <label for="{{page}}">
+<img src="https://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a" 
+style="background-color:white;border-radius: 5px; width:50px; height:50px;"/>
+</label>
+  {% endif %}
+
+  {% if page == "remoteok" %}
+  <label for="{{page}}">
+<img src="https://remoteok.io/assets/logo-500px.png?1" 
+style="background-color:white; border-radius: 5px; width:50px; height:50px; -webkit-filter: invert(100%);"/>
+</label>
+  {% endif %}
+
+{% endfor %}
+</div>
+  <div class="row d-flex justify-content-around">
+  {% for page in selected %}
+    <div class="text-center align-items-center d-flex justify-content-center">
+      <input type="checkbox" name="{{page}}" id="{{page}}" style="margin:5px;" />
+    </div>
+  {% endfor %}
+  </div>
+
+  <hr class="hr-light">
+  <div class="row d-flex justify-content-around" style="padding:10px;">
+  {% for job in jobs %}
+    <div class="text-center align-items-center d-flex justify-content-center" style=" flex-direction:column;">
+      <label style="margin-bottom:0;" for="{{job}}"><h6 class="white-text">{{job}}</h6></label>
+      <input type="checkbox" name="{{job}}" id="{{job}}" />
+    </div>
+  {% endfor %}
+  </div>
+
+  <div class="row d-flex justify-content-around">
+    <button type="submit" class="btn btn-indigo">Extract</button>
+  </div>
+</form>
+              </div>
+            </div>
+            <!--/.Form-->
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </div>
+      <!-- Content -->
+    </div>
+    <!-- Mask & flexbox options-->
+
+  </div>
+  <!-- Full Page Intro -->
+</header>
+<!-- Main navigation -->
+<div class="container" style="padding-top : 100px;">
+    <h1>Results</h1>
+    <hr>
+    <h3>from : {% for subreddit in selected %}
+      {% if loop.index != 1 %}, {%endif%}
+      {{subreddit}}{% endfor %} </h3>
+    <div style="padding-top : 50px;">
+    {% for page in posts.keys() %}
+    {% for jobs, finds in posts[page].items() %}
+    {% for post in finds %}
+      <div>
+          <a href="{{post[3]}}" target="_blank">
+            <h3>{{post[0]}}</h3>
+            <h2>{{post[2]}}</h2>
+          </a>
+          <h4>{{post[1]}}    from {{page}}</h4>
+          {% if jobs != '0' %}
+          <h4>search by {{jobs}}</h4>
+          {% endif %}
+        <hr />
+      </div>
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
+    </div>
+</div>
+
+<footer class="page-footer text-center font-small mt-4 wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
+    <hr class="my-4">
+
+    <!-- Social icons -->
+    <div class="pb-4">
+      <a href="https://www.facebook.com/profile.php?id=100011238720596" target="_blank">
+        <i class="fab fa-facebook-f fa-2x mx-4"></i>
+      </a>
+      <a href="https://github.com/junnei" target="_blank">
+        <i class="fab fa-github fa-2x mx-4"></i>
+      </a>
+      <a href="https://www.instagram.com/xu._n/" target="_blank">
+        <i class="fab fa-instagram fa-2x mx-4"></i>
+      </a>
+    </div>
+    <!-- Social icons -->
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+      © 2020 Copyright : Seongjun Jang ,  장 성 준 ,  Jun.
+      <br>
+      <br>
+      <a href="http://github.com/junnei/" target="_blank">Github : Junnei</a>  /  
+      <a href="https://www.instagram.com/xu._n/" target="_blank">Instagram : xu._n</a>  /  
+      <a href="" target="_blank">Facebook : 장 성 준</a>
+      <br>
+    </div>
+    <div class="footer-copyright pb-3 text-md-right px-4">
+      Design from
+      <a class="px-2" href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+      <a class="btn-outline-white waves-effect waves-light py-1 px-2" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank" role="button" >Download MDB
+        <i class="fas fa-download ml-2"></i>
+      </a>
+    </div>
+    <!--/.Copyright-->
+
+  </footer>
+  
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" 
+  src="{{url_for('static',filename='js/jquery-3.4.1.min.js')}}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" 
+  src="{{url_for('static',filename='js/popper.min.js')}}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" 
+  src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" 
+  src="{{url_for('static',filename='js/mdb.min.js')}}"></script>
+  <!-- Initializations -->
+  <script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+  </script>
+</body>
+
+</html>

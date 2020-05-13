@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Job Finder</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.min.css') }}">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+
+<header>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-navy navbar-dark fixed-top scrolling-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <strong>Job Finder</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/">Find</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/db">DB</a>
+          </li>
+        </ul>
+        <form class="form-inline">
+          <div class="md-form my-0">
+            <input class="form-control mr-sm-2" type="text" type="submit" placeholder="Search" aria-label="Search">
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar -->
+<body style="padding-top:100px;">
+  <!--Main Layout-->
+DB 존재여부
+<br>
+<h4>
+  {% for key, value in db.items() %}
+    {{key}} -
+    {% for name, db in value.items() %}
+    {% if loop.index == 1 %}{%else%},{%endif%}
+    {% if name == '0' %}
+    [All]
+    {% else %}
+    {{name}}
+    {% endif %}
+    {% endfor %}
+    <br>
+  {% endfor %}
+</h4>
+<br>
+DB raw value.
+<br>
+
+<h6>
+  {% for key, value in db.items() %}
+    {% for name, db in value.items() %}
+      {{key}} - {{name}}
+      <br>
+      {% for item in db %}
+        {{item}}
+        <br>
+      {% endfor %}
+    {% endfor %}
+    <br>
+  {% endfor %}
+</h6>
+
+  <!--Main Layout-->
+<footer class="page-footer text-center font-small mt-4 wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
+    <hr class="my-4">
+
+    <!-- Social icons -->
+    <div class="pb-4">
+      <a href="https://www.facebook.com/profile.php?id=100011238720596" target="_blank">
+        <i class="fab fa-facebook-f fa-2x mx-4"></i>
+      </a>
+      <a href="https://github.com/junnei" target="_blank">
+        <i class="fab fa-github fa-2x mx-4"></i>
+      </a>
+      <a href="https://www.instagram.com/xu._n/" target="_blank">
+        <i class="fab fa-instagram fa-2x mx-4"></i>
+      </a>
+    </div>
+    <!-- Social icons -->
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+      © 2020 Copyright : Seongjun Jang ,  장 성 준 ,  Jun.
+      <br>
+      <br>
+      <a href="http://github.com/junnei/" target="_blank">Github : Junnei</a>  /  
+      <a href="https://www.instagram.com/xu._n/" target="_blank">Instagram : xu._n</a>  /  
+      <a href="" target="_blank">Facebook : 장 성 준</a>
+      <br>
+    </div>
+    <div class="footer-copyright pb-3 text-md-right px-4">
+      Design from
+      <a class="px-2" href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+      <a class="btn-outline-white waves-effect waves-light py-1 px-2" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank" role="button" >Download MDB
+        <i class="fas fa-download ml-2"></i>
+      </a>
+    </div>
+    <!--/.Copyright-->
+</header>
+<!-- Main navigation -->
+  </footer>
+  
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" 
+  src="{{url_for('static',filename='js/jquery-3.4.1.min.js')}}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" 
+  src="{{url_for('static',filename='js/popper.min.js')}}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" 
+  src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" 
+  src="{{url_for('static',filename='js/mdb.min.js')}}"></script>
+  <!-- Initializations -->
+  <script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+  </script>
+</body>
+
+
+</html>
